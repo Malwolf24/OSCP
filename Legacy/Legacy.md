@@ -1,19 +1,20 @@
-#Legacy
+# Legacy
 
-##IP
+## IP
 	10.10.10.4
 
-##NMap Scan
-	sudo nmap -A 10.10.10.4 -p139,445 -vv
+## NMap Scan
+	``` sudo nmap -A 10.10.10.4 -p139,445 -vv
 	...
 	...
 	PORT    STATE SERVICE      REASON          VERSION
 	139/tcp open  netbios-ssn  syn-ack ttl 127 Microsoft Windows netbios-ssn
-	445/tcp open  microsoft-ds syn-ack ttl 127 Windows XP microsoft-ds
+	445/tcp open  microsoft-ds syn-ack ttl 127 Windows XP microsoft-ds ```
 	
 	
 	This time with NSE Scripts turned on...
-	kali@kali:~$ sudo nmap -A 10.10.10.4 -p139,445 --script=smb-vuln-* -vv
+	
+	``` kali@kali:~$ sudo nmap -A 10.10.10.4 -p139,445 --script=smb-vuln-* -vv
 	...
 	...
 	PORT    STATE SERVICE      REASON          VERSION
@@ -40,7 +41,7 @@
 	|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-4250
 	|_smb-vuln-ms10-054: false
 	|_smb-vuln-ms10-061: ERROR: Script execution failed (use -d to debug)
-	**| smb-vuln-ms17-010: 
+	| smb-vuln-ms17-010: 
 	|   VULNERABLE:
 	|   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
 	|     State: VULNERABLE
@@ -49,11 +50,11 @@
 	|       A critical remote code execution vulnerability exists in Microsoft SMBv1
 	|        servers (ms17-010).
 	|           
-	|     Disclosure date: 2017-03-14**
+	|     Disclosure date: 2017-03-14 
 	|     References:
 	|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
 	|       https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
 	|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
 	...
-	...
+	... ```
 
