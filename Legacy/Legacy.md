@@ -61,6 +61,23 @@ Host script results:
 ... 
 ```
 
+## Searchsploit
+
+```
+kali@kali:~$ searchsploit ms17-010
+------------------------------------------------- ---------------------------------
+ Exploit Title                                   |  Path
+------------------------------------------------- ---------------------------------
+Microsoft Windows - 'EternalRomance'/'EternalSyn | windows/remote/43970.rb
+Microsoft Windows - SMB Remote Code Execution Sc | windows/dos/41891.rb
+Microsoft Windows 7/2008 R2 - 'EternalBlue' SMB  | windows/remote/42031.py
+Microsoft Windows 7/8.1/2008 R2/2012 R2/2016 R2  | windows/remote/42315.py
+Microsoft Windows 8/8.1/2012 R2 (x64) - 'Eternal | windows_x86-64/remote/42030.py
+Microsoft Windows Server 2008 R2 (x64) - 'SrvOs2 | windows_x86-64/remote/41987.py
+------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+```
+
 ## MS17-010 (CVE-2017-0143)
 This is Eternal Blue. At this point, I got stuck and followed Rana Khalil's walkthrough (https://rana-khalil.gitbook.io/hack-the-box-oscp-preparation/windows-boxes/legacy-writeup-w-o-metasploit). I downloaded Impacket into my Ptyhon2.7 directory along with https://github.com/helviojunior/MS17-010.git exploit code. 
 
