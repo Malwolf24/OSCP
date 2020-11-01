@@ -8,6 +8,7 @@ This is my cheatsheet of key commands, strings, TTPS, etc. that keep popping up 
 ## Linux
 
 ## Nmap
-- 
+- Nmap Scripts are stored in ```/usr/share/nmap/scripts```
+
 
 ## Meterpreter
