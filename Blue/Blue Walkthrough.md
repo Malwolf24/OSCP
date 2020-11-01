@@ -15,7 +15,7 @@ PORT    STATE SERVICE      REASON
 445/tcp open  microsoft-ds syn-ack ttl 127
 ```
 
-I then ran a ***-A*** against all three open identified ports:
+I then ran a **-A** against all three open identified ports:
 
 ```
 kali@kali:~$ sudo nmap -A 10.10.10.40 -p135,139,445 -vv
@@ -54,7 +54,7 @@ Host script results:
 |_  start_date: 2020-10-31T02:59:24
 ```
 
-Finally, I rann ***-A*** against the SMB-specific ports (139, 445) turning on all the NSE scripts from SMB vulnerabilities:
+Finally, I ran **-A** against the SMB-specific ports (139, 445) turning on all the NSE scripts from SMB vulnerabilities:
 
 ```
 kali@kali:~$ sudo nmap -A 10.10.10.40 -p139,445 --script=smb-vuln-* -vv
@@ -66,7 +66,7 @@ PORT    STATE SERVICE      REASON          VERSION
 Host script results:
 |_smb-vuln-ms10-054: false
 |_smb-vuln-ms10-061: NT_STATUS_OBJECT_NAME_NOT_FOUND
-| ***smb-vuln-ms17-010***: 
+| **smb-vuln-ms17-010** : 
 |   VULNERABLE:
 |   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
 |     State: VULNERABLE
@@ -81,3 +81,9 @@ Host script results:
 |       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
 |_      https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
 ```
+
+The NSE scripts show Blue is vulnerable to MS17-010, the same issue we exploited for Legacy. But this time, I didn't want to use a walkthrough of the box. Instead, I wanted to see how to manually exploit the issue *for the issue* and not just for the box.
+
+## Searchsploit
+![Image of Searchsploit for MS17-010]
+()
